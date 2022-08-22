@@ -8,7 +8,7 @@ import { AuthContext } from "../contexts/AuthContext"
 import { AddTechModal, ModalPage, TechModalHeader } from "./styles"
 
 
-export default function TechForm () {
+export default function TechForm ({setShow}) {
   const techSchema = yup.object().shape({
     title: yup.string().required('O nome da tecnologia é obrigatório!')
   })
@@ -35,7 +35,7 @@ export default function TechForm () {
             <option value="Intermediário">Intermediário</option>
             <option value="Avançado">Avançado</option>
           </Select>
-          <RegisterButton type="submit">Cadastrar Tecnologia</RegisterButton>
+          <RegisterButton type="submit" onClick={() => setShow(false)}>Cadastrar Tecnologia</RegisterButton>
         </Form>
       </AddTechModal>
     </ModalPage>

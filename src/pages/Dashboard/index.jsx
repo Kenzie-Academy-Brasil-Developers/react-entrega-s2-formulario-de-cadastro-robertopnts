@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { Navigate, useNavigate } from "react-router-dom"
 import { AuthContext } from "../../components/contexts/AuthContext"
 import { BackButton, DashboardHeader, H1, Main } from '../styles/global.js'
@@ -9,6 +9,7 @@ import TechForm from "../../components/TechForm"
 
 export default function Dashboard() {
 
+  const [show, setShow] = useState(false)
   const navigate = useNavigate()
   const {user, loading} = useContext(AuthContext)
   console.log(user)
@@ -25,6 +26,8 @@ export default function Dashboard() {
     return (
     user ? 
       <>
+        {show && <TechForm setShow={setShow}/>}
+
         <Main>
           <DashboardHeader>
             <H1>Kenzie Hub</H1>
@@ -36,7 +39,7 @@ export default function Dashboard() {
           </DashboardContainer>
           <TechsDiv>
             <PTech>Tecnologias</PTech>
-            <TechButton>+</TechButton>
+            <TechButton onClick={() => setShow(true)}>+</TechButton>
           </TechsDiv>
           <TechsContainer>
             <TechList/>
