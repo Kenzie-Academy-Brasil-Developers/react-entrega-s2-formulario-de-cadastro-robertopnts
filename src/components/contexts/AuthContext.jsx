@@ -24,6 +24,7 @@ export default function AuthProvider ({children}) {
           setUser(data)
         } catch (error) {
           console.error(error)
+          localStorage.clear()
         }
       }
       setLoading(false)
@@ -49,8 +50,48 @@ export default function AuthProvider ({children}) {
     navigate('/dashboard', { replace: true })
   }
 
+  const registerData = (data) => {
+    api.post('/users', data)
+      .then(
+        response => {console.log(response)
+        alert('Conta registrada!')
+        navigate('/', {replace: true})}
+        )
+      .catch(error => alert(error)) 
+  }
+
+  const registerTech = (newTech) => {
+    const token = localStorage.getItem('@kenzie-hub:token')
+    console.log(token, newTech)
+
+    api.post('/users/techs', newTech, {
+      headers: {Authorization: `Bearer ${token}`}
+    })
+      .then(
+        response => {
+          console.log(response)
+          setUser(response)
+          alert('Tecnologia registrada!')
+        }
+      )
+      .catch(error => alert(error))
+  }
+
+  const deleteTech = (delTech) => {
+    const token = localStorage.getItem('@kenzie-hub:token')
+
+    api.post(`/users/techs/:${delTech.id}`, {
+      headers: {Authorizarion: `Bearer ${token}`}
+    })
+      .then(
+        response => {
+          setUser(response)
+        })
+      .catch( error => alert(error))
+  }
+
   return (
-    <AuthContext.Provider value={{user, signIn, loading}}>
+    <AuthContext.Provider value={{user, signIn, registerData, deleteTech, loading, registerTech}}>
       {children}
     </AuthContext.Provider>
   )

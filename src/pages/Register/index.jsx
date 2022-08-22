@@ -1,11 +1,11 @@
 import { useForm } from "react-hook-form"
 import { schema } from "../../validators/Register/registerUser"
 import { yupResolver } from "@hookform/resolvers/yup"
+import { BackButton, Form, H1, HeaderContainer, Label, Main, P } from "../styles/global"
+import { Input, RegisterButton, RegisterContainer, Select } from "./styles"
+import { useContext } from "react"
+import { AuthContext } from "../../components/contexts/AuthContext"
 import { useNavigate } from "react-router-dom"
-import api from "../../services/api"
-import { Button, Form, Label, Main, P } from "../styles/global"
-import { Input, RegisterContainer, Select } from "./styles"
-import Header from "../../components/Header"
 
 
 
@@ -14,32 +14,24 @@ export default function Register () {
   } = useForm({
     resolver: yupResolver(schema)
   })
+  const { registerData } = useContext(AuthContext)
   const navigate = useNavigate()
-  
-  function registerData(data) {
-    api.post('/users', data)
-      .then(
-        response => {console.log(response)
-        alert('Conta registrada!')
-        navigate('/', {replace: true})}
-        )
-      .catch(error => alert(error)) 
-    
-    
-
+  function turnBack() {
+    navigate('/', {replace: true})
   }
-
-
 
   return (
   <>
     <Main>
 
-      <Header/>
+      <HeaderContainer>
+        <H1>Kenzie Hub</H1>
+        <BackButton onClick={() => turnBack()}>Voltar</BackButton>
+      </HeaderContainer>
 
       <RegisterContainer>
-        <h1>Crie sua conta</h1>
-        <h3>Rápido e grátis, vamos nessa</h3>
+        <h2>Crie sua conta</h2>
+        <P>Rápido e grátis, vamos nessa</P>
 
         <Form onSubmit={handleSubmit(registerData)}>
 
@@ -78,7 +70,7 @@ export default function Register () {
           </Select>
           <P>{errors.module?.message}</P>
 
-          <Button type="submit">Cadastrar</Button>
+          <RegisterButton type="submit">Cadastrar</RegisterButton>
         </Form>
       </RegisterContainer>
     </Main>

@@ -15,6 +15,27 @@ export const LoginContainer = styled.div`
   }
 `
 
+export const LoginButton = styled.button`
+  width: 270px;
+  height: 39px;
+  background: #868E96;
+  border: 1.5px solid #868E96;
+  border-radius: 4px;
+  margin: 0 auto;
+  color: #F8F9FA;
+  cursor: pointer;
+  margin-bottom: 10px;
+
+  &:hover {
+    background: #FF8BA7
+  }
+
+  @media (min-width: 705px){
+    width: 330px;
+  }
+
+`
+
 export const Input = styled.input`
   width: 270px;
   height: 39px;

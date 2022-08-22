@@ -1,11 +1,10 @@
 
 import React, { useContext } from 'react'
 import { useForm } from 'react-hook-form'
-import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../components/contexts/AuthContext.jsx'
-import Header from '../../components/Header/index.jsx'
-import { Input, LoginContainer } from '../Login/styles.js'
-import { Button, Form, Label, Main, P } from '../styles/global.js'
+import { Input, LoginButton, LoginContainer } from '../Login/styles.js'
+import { Button, Form, H1, Label, Main, P } from '../styles/global.js'
 
 export default function Login() {
 
@@ -16,7 +15,7 @@ export default function Login() {
     <>
       <Main>
 
-        <Header/>
+        <H1>Kenzie Hub</H1>
         <LoginContainer>
 
           <h2>Login</h2>
@@ -33,7 +32,7 @@ export default function Login() {
 
           <P>Ainda não possui uma conta?</P>
 
-          <Button onClick={() => navigate('/register', {replace:true})}>Cadastre-se</Button>
+          <LoginButton onClick={() => navigate('/register', {replace:true})}>Cadastre-se</LoginButton>
         </LoginContainer>
       </Main>
     </>

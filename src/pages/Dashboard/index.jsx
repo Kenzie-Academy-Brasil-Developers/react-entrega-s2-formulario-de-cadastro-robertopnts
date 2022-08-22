@@ -1,14 +1,22 @@
 import { useContext } from "react"
-import { Navigate } from "react-router-dom"
+import { Navigate, useNavigate } from "react-router-dom"
 import { AuthContext } from "../../components/contexts/AuthContext"
-import { Main } from '../styles/global.js'
-import { DashboardContainer } from '../Dashboard/styles.js'
-import Header from '../../components/Header/index.jsx'
+import { BackButton, DashboardHeader, H1, Main } from '../styles/global.js'
+import { DashboardContainer, H2, PDash, PTech, TechButton, TechsContainer, TechsDiv } from '../Dashboard/styles.js'
+import TechList from "../../components/TechList"
+import TechForm from "../../components/TechForm"
+
 
 export default function Dashboard() {
 
+  const navigate = useNavigate()
   const {user, loading} = useContext(AuthContext)
   console.log(user)
+
+  function logout () {
+    localStorage.clear()
+    navigate('/', {replace: true})
+  }
 
   if (loading) {
     return <p>Carregando...</p>
@@ -18,11 +26,21 @@ export default function Dashboard() {
     user ? 
       <>
         <Main>
-          <Header/>
+          <DashboardHeader>
+            <H1>Kenzie Hub</H1>
+            <BackButton onClick={() => logout()}>Sair</BackButton>
+          </DashboardHeader>
           <DashboardContainer>
-            <h2> Olá, {user.name} </h2> 
-            <p>{user.course_module}</p>
+            <H2> Olá, {user.name} </H2> 
+            <PDash>{user.course_module}</PDash>
           </DashboardContainer>
+          <TechsDiv>
+            <PTech>Tecnologias</PTech>
+            <TechButton>+</TechButton>
+          </TechsDiv>
+          <TechsContainer>
+            <TechList/>
+          </TechsContainer>
         </Main>
       </>
     : <Navigate to='/' replace/>
