@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext } from "react"
 import { Navigate, useNavigate } from "react-router-dom"
 import { AuthContext } from "../../components/contexts/AuthContext"
 import { BackButton, DashboardHeader, H1, Main } from '../styles/global.js'
@@ -9,9 +9,8 @@ import TechForm from "../../components/TechForm"
 
 export default function Dashboard() {
 
-  const [show, setShow] = useState(false)
   const navigate = useNavigate()
-  const {user, loading} = useContext(AuthContext)
+  const {user, loading, show, setShow} = useContext(AuthContext)
   console.log(user)
 
   function logout () {
@@ -26,7 +25,7 @@ export default function Dashboard() {
     return (
     user ? 
       <>
-        {show && <TechForm setShow={setShow}/>}
+        {show && <TechForm/>}
 
         <Main>
           <DashboardHeader>

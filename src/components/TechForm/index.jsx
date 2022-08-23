@@ -8,12 +8,12 @@ import { AuthContext } from "../contexts/AuthContext"
 import { AddTechModal, ModalPage, TechModalHeader } from "./styles"
 
 
-export default function TechForm ({setShow}) {
+export default function TechForm () {
   const techSchema = yup.object().shape({
     title: yup.string().required('O nome da tecnologia é obrigatório!')
   })
   const { register, handleSubmit, formState: {errors}} = useForm({resolver: yupResolver(techSchema)})
-  const { registerTech } = useContext(AuthContext)
+  const { registerTech, setShow } = useContext(AuthContext)
 
 
   return (
@@ -21,21 +21,21 @@ export default function TechForm ({setShow}) {
       <AddTechModal>
         <TechModalHeader>
           <p>Cadastrar Tecnologia</p>
-          <button>X</button>
+          <button onClick={() => setShow(false)}>X</button>
         </TechModalHeader>
 
         <Form onSubmit={handleSubmit(registerTech)}>
           <Label htmlFor="title">Nome</Label>
-          <Input type="text" id="title" {...register('title')} />
+          <Input type="text" id="title" {...register("title")} />
           {errors.title?.message && <P>{errors.title.message}</P>}
 
           <Label htmlFor="status">Selecionar status</Label>
-          <Select name="status" id="status" {...register('status')}>
+          <Select name="status" id="status" {...register("status")}>
             <option value="Iniciante">Iniciante</option>
             <option value="Intermediário">Intermediário</option>
             <option value="Avançado">Avançado</option>
           </Select>
-          <RegisterButton type="submit" onClick={() => setShow(false)}>Cadastrar Tecnologia</RegisterButton>
+          <RegisterButton type="submit">Cadastrar Tecnologia</RegisterButton>
         </Form>
       </AddTechModal>
     </ModalPage>
