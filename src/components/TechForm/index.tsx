@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form"
 import * as yup from 'yup'
 import { Input, RegisterButton, Select } from "../../pages/Register/styles"
 import { Form, Label, P } from "../../pages/styles/global"
-import { AuthContext } from "../contexts/AuthContext"
+import { ITechForm, TechsContext } from "../contexts/TechsContext"
 import { AddTechModal, ModalPage, TechModalHeader } from "./styles"
 
 
@@ -12,8 +12,8 @@ export default function TechForm () {
   const techSchema = yup.object().shape({
     title: yup.string().required('O nome da tecnologia é obrigatório!')
   })
-  const { register, handleSubmit, formState: {errors}} = useForm({resolver: yupResolver(techSchema)})
-  const { registerTech, setShow } = useContext(AuthContext)
+  const { register, handleSubmit, formState: {errors}} = useForm<ITechForm>({resolver: yupResolver(techSchema)})
+  const { registerTech, setShow } = useContext(TechsContext)
 
 
   return (
@@ -30,7 +30,7 @@ export default function TechForm () {
           {errors.title?.message && <P>{errors.title.message}</P>}
 
           <Label htmlFor="status">Selecionar status</Label>
-          <Select name="status" id="status" {...register("status")}>
+          <Select id="status" {...register("status")}>
             <option value="Iniciante">Iniciante</option>
             <option value="Intermediário">Intermediário</option>
             <option value="Avançado">Avançado</option>

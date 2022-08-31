@@ -1,16 +1,18 @@
 import { useContext } from "react"
 import { Navigate, useNavigate } from "react-router-dom"
 import { AuthContext } from "../../components/contexts/AuthContext"
-import { BackButton, DashboardHeader, H1, Main } from '../styles/global.js'
-import { DashboardContainer, H2, PDash, PTech, TechButton, TechsContainer, TechsDiv } from '../Dashboard/styles.js'
+import { BackButton, DashboardHeader, H1, Main } from '../styles/global'
+import { DashboardContainer, H2, PDash, PTech, TechButton, TechsContainer, TechsDiv } from '../Dashboard/styles'
 import TechList from "../../components/TechList"
 import TechForm from "../../components/TechForm"
+import { TechsContext } from "../../components/contexts/TechsContext"
 
 
 export default function Dashboard() {
 
   const navigate = useNavigate()
-  const {user, loading, show, setShow} = useContext(AuthContext)
+  const { show, setShow } = useContext(TechsContext)
+  const {user, loading} = useContext(AuthContext)
   console.log(user)
 
   function logout () {

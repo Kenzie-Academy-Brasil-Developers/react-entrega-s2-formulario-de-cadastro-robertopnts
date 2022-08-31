@@ -4,14 +4,14 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import { BackButton, Form, H1, HeaderContainer, Label, Main, P } from "../styles/global"
 import { Input, RegisterButton, RegisterContainer, Select } from "./styles"
 import { useContext } from "react"
-import { AuthContext } from "../../components/contexts/AuthContext"
+import { AuthContext, ICreateUser } from "../../components/contexts/AuthContext"
 import { useNavigate } from "react-router-dom"
 
 
 
 export default function Register () {
   const { register, handleSubmit, formState: {errors} 
-  } = useForm({
+  } = useForm<ICreateUser>({
     resolver: yupResolver(schema)
   })
   const { registerData } = useContext(AuthContext)
@@ -60,7 +60,7 @@ export default function Register () {
           <P>{errors.contact?.message}</P>
 
           <Label htmlFor="module">Selecionar módulo:</Label>
-          <Select name="module" id="module" {...register('course_module')}>
+          <Select  id="module" {...register('course_module')}>
             <option value="first module (front-end)">Primeiro módulo</option>
             <option value="second module (front-end)">Segundo módulo</option>
             <option value="third module (front-end)">Terceiro módulo</option>
@@ -68,7 +68,7 @@ export default function Register () {
             <option value="fifth module (back-end)">Quinto módulo</option>
             <option value="sixth module">Sexto módulo</option>
           </Select>
-          <P>{errors.module?.message}</P>
+          <P>{errors.course_module?.message}</P>
 
           <RegisterButton type="submit">Cadastrar</RegisterButton>
         </Form>

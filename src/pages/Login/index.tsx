@@ -2,13 +2,13 @@
 import React, { useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import { AuthContext } from '../../components/contexts/AuthContext.jsx'
-import { Input, LoginButton, LoginContainer } from '../Login/styles.js'
-import { Button, Form, H1, Label, Main, P } from '../styles/global.js'
+import { AuthContext, IData } from '../../components/contexts/AuthContext'
+import { Input, LoginButton, LoginContainer } from '../Login/styles'
+import { Button, Form, H1, Label, Main, P } from '../styles/global'
 
 export default function Login() {
 
-  const { register, handleSubmit } = useForm()
+  const { register, handleSubmit } = useForm<IData>()
   const { signIn } = useContext(AuthContext)
   const navigate = useNavigate()
   return (
